@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-night-dark: #1E2238;
+    --color-silver-pearl: #F6F7F9;
+    --color-crimson-ruby: #9E1030;
+    --color-periwinkle: #8E98BA;
+    --color-indigo-slate: #5A607F;
+  }
+
+  body {
+    font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: #F4F5F8;
+    color: #1E2238;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    overscroll-behavior-y: none;
+  }
+
+  input, textarea, button, select {
+    font-family: inherit;
+    user-select: auto;
+  }
+}
+
+/* Crisp, Clean Card Styling */
+.glass-box {
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.04), 0 1px 2px -1px rgba(15, 23, 42, 0.04);
+}
+
+.glass-box-interactive {
+  transition: all 0.15s ease-in-out;
+}
+.glass-box-interactive:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 4px 12px 0 rgba(15, 23, 42, 0.06);
+}
+
+/* Primary Action Button */
+.shiny-crimson-btn {
+  background-color: #9E1030;
+  color: #FFFFFF;
+  font-weight: 600;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+.shiny-crimson-btn:hover {
+  background-color: #830B26;
+}
+.shiny-crimson-btn:active {
+  transform: scale(0.98);
+}
+
+.shiny-dark-card {
+  background-color: #1E2238;
+  color: #FFFFFF;
+  border: 1px solid #2F3556;
+}
+
+.shiny-periwinkle-pill {
+  background-color: #EEF2F6;
+  border: 1px solid #E2E8F0;
+  color: #1E2238;
+}
+
+.shiny-crimson-pill {
+  background-color: #FDF2F4;
+  border: 1px solid #FBCFE8;
+  color: #9E1030;
+}
+
+/* Clean, Minimal Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}

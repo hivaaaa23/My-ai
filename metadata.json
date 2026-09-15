@@ -1,0 +1,6 @@
+{
+  "name": "StudyMate",
+  "description": "Personal AI study planner for Iranian high-school students preparing for the Konkur with Persian RTL interface, daily tests, school timetable, and study analytics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
