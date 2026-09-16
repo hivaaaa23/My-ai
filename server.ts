@@ -6,7 +6,8 @@ import { apiRouter } from './server/routes/api.js';
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
+  // Dynamic port for Render / production hosting (process.env.PORT) while safeguarding AI Studio local proxy (3000)
+  const PORT = Number(process.env.APPLET_ID ? 3000 : (process.env.PORT || 3000));
 
   // JSON Body parsing
   app.use(express.json());
