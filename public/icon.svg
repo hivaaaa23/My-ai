@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E1B4B" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#BE123C" />
+      <stop offset="100%" stop-color="#9E1030" />
+    </linearGradient>
+    <filter id="dropShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.35" />
+    </filter>
+  </defs>
+
+  <!-- Background Squircle -->
+  <rect width="512" height="512" rx="112" fill="url(#bgGrad)" />
+
+  <!-- Accent Emblem Ring -->
+  <circle cx="256" cy="245" r="160" fill="url(#accentGrad)" filter="url(#dropShadow)" />
+
+  <!-- Open Book Pages -->
+  <g fill="#FFFFFF">
+    <!-- Left Page -->
+    <path d="M 150 180 Q 200 170 242 195 L 242 320 Q 195 295 150 305 Z" opacity="0.95" />
+    <!-- Right Page -->
+    <path d="M 362 180 Q 312 170 270 195 L 270 320 Q 317 295 362 305 Z" opacity="0.95" />
+  </g>
+
+  <!-- Book Spine / Bookmark Ribbon -->
+  <path d="M 248 185 L 264 185 L 264 340 L 256 332 L 248 340 Z" fill="#F59E0B" />
+
+  <!-- Study Checkmark / Star of Excellence -->
+  <path d="M 215 390 L 245 420 L 310 355" fill="none" stroke="#FFFFFF" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" />
+</svg>

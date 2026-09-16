@@ -473,9 +473,9 @@ export default function App() {
   const upcomingExamsCount = exams.length;
 
   return (
-    <div className="min-h-screen bg-slate-100/70 text-slate-800 flex flex-col items-center">
+    <div className="min-h-screen bg-slate-200/80 text-slate-950 flex flex-col items-center">
       {/* Mobile Frame Container */}
-      <div className="w-full max-w-lg min-h-screen bg-slate-50/60 flex flex-col shadow-md border-x border-slate-200/80 relative">
+      <div className="w-full max-w-lg min-h-screen bg-[#EEF2F6] flex flex-col shadow-lg border-x border-slate-300 relative">
         {/* Sticky App Header */}
         <AppHeader
           activeScreen={activeScreen}

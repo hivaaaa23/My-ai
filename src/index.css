@@ -2,17 +2,17 @@
 
 @layer base {
   :root {
-    --color-night-dark: #1E2238;
-    --color-silver-pearl: #F6F7F9;
-    --color-crimson-ruby: #9E1030;
-    --color-periwinkle: #8E98BA;
-    --color-indigo-slate: #5A607F;
+    --color-night-dark: #0F172A;
+    --color-silver-pearl: #EEF2F6;
+    --color-crimson-ruby: #BE123C;
+    --color-periwinkle: #64748B;
+    --color-indigo-slate: #334155;
   }
 
   body {
     font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background-color: #F4F5F8;
-    color: #1E2238;
+    background-color: #EEF2F6;
+    color: #0F172A;
     -webkit-tap-highlight-color: transparent;
     user-select: none;
     overscroll-behavior-y: none;
@@ -24,51 +24,57 @@
   }
 }
 
-/* Crisp, Clean Card Styling */
+/* Crisp, High-Contrast Card Styling */
 .glass-box {
   background-color: #FFFFFF;
-  border: 1px solid #E5E7EB;
-  box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.04), 0 1px 2px -1px rgba(15, 23, 42, 0.04);
+  border: 1px solid #CBD5E1;
+  box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.08), 0 1px 2px -1px rgba(15, 23, 42, 0.04);
 }
 
 .glass-box-interactive {
   transition: all 0.15s ease-in-out;
 }
 .glass-box-interactive:hover {
-  border-color: #CBD5E1;
-  box-shadow: 0 4px 12px 0 rgba(15, 23, 42, 0.06);
+  border-color: #94A3B8;
+  box-shadow: 0 4px 14px 0 rgba(15, 23, 42, 0.12);
 }
 
-/* Primary Action Button */
+/* High Contrast Primary Action Button */
 .shiny-crimson-btn {
-  background-color: #9E1030;
+  background-color: #BE123C;
   color: #FFFFFF;
-  font-weight: 600;
-  transition: background-color 0.15s ease, transform 0.1s ease;
+  font-weight: 700;
+  border: 1px solid #9F1239;
+  box-shadow: 0 2px 4px -1px rgba(190, 18, 60, 0.25);
+  transition: background-color 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
 }
 .shiny-crimson-btn:hover {
-  background-color: #830B26;
+  background-color: #9F1239;
+  box-shadow: 0 4px 10px -2px rgba(190, 18, 60, 0.4);
 }
 .shiny-crimson-btn:active {
   transform: scale(0.98);
 }
 
 .shiny-dark-card {
-  background-color: #1E2238;
+  background-color: #0F172A;
   color: #FFFFFF;
-  border: 1px solid #2F3556;
+  border: 1px solid #1E293B;
+  box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.25);
 }
 
 .shiny-periwinkle-pill {
-  background-color: #EEF2F6;
-  border: 1px solid #E2E8F0;
-  color: #1E2238;
+  background-color: #E2E8F0;
+  border: 1px solid #CBD5E1;
+  color: #0F172A;
+  font-weight: 600;
 }
 
 .shiny-crimson-pill {
-  background-color: #FDF2F4;
-  border: 1px solid #FBCFE8;
-  color: #9E1030;
+  background-color: #FFE4E6;
+  border: 1px solid #FDA4AF;
+  color: #9F1239;
+  font-weight: 700;
 }
 
 /* Clean, Minimal Scrollbar */
@@ -80,9 +86,9 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
+  background: #94A3B8;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94A3B8;
+  background: #64748B;
 }
