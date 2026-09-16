@@ -1,12 +1,14 @@
 import React from 'react';
 import { ActiveScreen } from '../types/studymate';
 import { getTodayPersianDisplay } from '../utils/persianDate';
-import { RotateCcw } from 'lucide-react';
+import { RotateCcw, Bell } from 'lucide-react';
 
 interface AppHeaderProps {
   activeScreen: ActiveScreen;
   onResetData: () => void;
   isSyncing?: boolean;
+  onOpenNotifications?: () => void;
+  activeAlertsCount?: number;
 }
 
 const SCREEN_TITLES: Record<ActiveScreen, { title: string }> = {
@@ -20,7 +22,13 @@ const SCREEN_TITLES: Record<ActiveScreen, { title: string }> = {
   analysis: { title: 'تحلیل عملکرد' },
 };
 
-export const AppHeader: React.FC<AppHeaderProps> = ({ activeScreen, onResetData, isSyncing = false }) => {
+export const AppHeader: React.FC<AppHeaderProps> = ({
+  activeScreen,
+  onResetData,
+  isSyncing = false,
+  onOpenNotifications,
+  activeAlertsCount = 0,
+}) => {
   const currentInfo = SCREEN_TITLES[activeScreen];
   const todayPersian = getTodayPersianDisplay();
 
@@ -42,14 +50,32 @@ export const AppHeader: React.FC<AppHeaderProps> = ({ activeScreen, onResetData,
           </div>
         </div>
 
-        <button
-          onClick={onResetData}
-          title="بازنشانی پایگاه داده به نمونه اولیه"
-          className="p-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition border border-slate-200"
-        >
-          <RotateCcw className="w-4 h-4" />
-        </button>
+        <div className="flex items-center space-x-reverse space-x-2">
+          {onOpenNotifications && (
+            <button
+              onClick={onOpenNotifications}
+              title="مرکز اعلانات و یادآورهای کنکور"
+              className="relative p-2 rounded-xl text-slate-700 hover:text-slate-950 hover:bg-slate-100 transition border border-slate-200"
+            >
+              <Bell className="w-4 h-4" />
+              {activeAlertsCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-[#BE123C] text-white text-[9px] font-black w-4 h-4 rounded-full flex items-center justify-center shadow-xs animate-pulse">
+                  {activeAlertsCount}
+                </span>
+              )}
+            </button>
+          )}
+
+          <button
+            onClick={onResetData}
+            title="بازنشانی پایگاه داده به نمونه اولیه"
+            className="p-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition border border-slate-200"
+          >
+            <RotateCcw className="w-4 h-4" />
+          </button>
+        </div>
       </div>
     </header>
   );
 };
+

@@ -13,6 +13,8 @@ import {
   BookOpen,
   MessageSquare,
   Sparkles,
+  Bell,
+  AlertCircle,
 } from 'lucide-react';
 
 interface HomeScreenProps {
@@ -23,6 +25,7 @@ interface HomeScreenProps {
   onNavigate: (screen: ActiveScreen) => void;
   onToggleTask: (taskId: string) => void;
   onQuickAddTask: () => void;
+  onOpenNotifications?: () => void;
 }
 
 export const HomeScreen: React.FC<HomeScreenProps> = ({
@@ -33,6 +36,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
   onNavigate,
   onToggleTask,
   onQuickAddTask,
+  onOpenNotifications,
 }) => {
   const todayStr = new Date().toISOString().split('T')[0];
   const todayTasks = tasks.filter((t) => t.dueDate === todayStr);
@@ -46,8 +50,60 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
     .sort((a, b) => a.countdown.days - b.countdown.days);
   const nextImportantExam = sortedUpcomingExams.find((e) => e.isImportant) || sortedUpcomingExams[0];
 
+  const isExamEveOrToday = nextImportantExam && nextImportantExam.countdown.days <= 1;
+  const pendingUrgentTasks = todayTasks.filter((t) => !t.completed && (t.priority === 'urgent' || t.priority === 'high'));
+
   return (
     <div className="space-y-4 pb-20 max-w-xl mx-auto">
+      {/* 0. Contextual Eve of Exam or Urgent Deadline Notice */}
+      {isExamEveOrToday && (
+        <section className="bg-rose-50 border border-rose-300 rounded-xl p-3.5 shadow-xs flex items-center justify-between text-xs">
+          <div className="flex items-center space-x-reverse space-x-2.5 min-w-0">
+            <div className="w-8 h-8 rounded-lg bg-rose-600 text-white flex items-center justify-center shrink-0 shadow-xs animate-bounce">
+              <Bell className="w-4 h-4" />
+            </div>
+            <div className="min-w-0">
+              <p className="font-extrabold text-rose-950 truncate">
+                {nextImportantExam.countdown.days === 1
+                  ? `🔔 یادآوری شب آزمون: فردا آزمون ${nextImportantExam.title}`
+                  : `🎯 امروز آزمون ${nextImportantExam.title} برگزار می‌شود`}
+              </p>
+              <p className="text-[11px] text-rose-800 font-medium truncate mt-0.5">
+                {nextImportantExam.countdown.days === 1
+                  ? 'مرور خلاصه‌نویسی‌ها، آماده‌سازی کارت و وسایل و خواب سر ساعت ۲۲'
+                  : 'با آرامش، استراتژی حل تست و تمرکز کامل سر جلسه حاضر شو'}
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={() => onNavigate('exams')}
+            className="shrink-0 mr-2 px-3 py-1.5 bg-[#BE123C] hover:bg-[#9F1239] text-white font-bold rounded-lg text-xs transition shadow-xs"
+          >
+            مشاهده
+          </button>
+        </section>
+      )}
+
+      {/* Deadline Notice if no exam eve, but high priority task pending */}
+      {!isExamEveOrToday && pendingUrgentTasks.length > 0 && (
+        <section className="bg-amber-50 border border-amber-300 rounded-xl p-3 flex items-center justify-between text-xs text-amber-950 shadow-xs">
+          <div className="flex items-center space-x-reverse space-x-2 min-w-0">
+            <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
+            <span className="font-bold truncate">
+              {toPersianDigits(pendingUrgentTasks.length)} پارت مهم امروز باقی‌مانده است: {pendingUrgentTasks[0].title}
+            </span>
+          </div>
+          {onOpenNotifications && (
+            <button
+              onClick={onOpenNotifications}
+              className="text-[11px] font-bold text-amber-900 hover:underline shrink-0 mr-2"
+            >
+              یادآورها
+            </button>
+          )}
+        </section>
+      )}
+
       {/* 1. Clean Summary Card */}
       <section className="bg-white rounded-xl p-4 border border-slate-300 shadow-xs space-y-3">
         <div className="flex items-center justify-between">

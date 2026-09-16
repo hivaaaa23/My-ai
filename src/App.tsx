@@ -34,6 +34,8 @@ import { ExamsScreen } from './components/ExamsScreen';
 import { SchoolScheduleScreen } from './components/SchoolScheduleScreen';
 import { DailyTestsScreen } from './components/DailyTestsScreen';
 import { AnalysisScreen } from './components/AnalysisScreen';
+import { NotificationCenterModal } from './components/NotificationCenterModal';
+import { NotificationService, StudyAlert } from './services/notificationService';
 import { Loader2, AlertTriangle, RefreshCw } from 'lucide-react';
 
 export default function App() {
@@ -43,6 +45,10 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isSyncing, setIsSyncing] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  // Notification state
+  const [isNotificationCenterOpen, setIsNotificationCenterOpen] = useState(false);
+  const [studyAlerts, setStudyAlerts] = useState<StudyAlert[]>([]);
 
   // Domain state
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -69,6 +75,20 @@ export default function App() {
       return () => clearTimeout(timer);
     }
   }, [toastMessage]);
+
+  // Register PWA Service Worker on mount
+  useEffect(() => {
+    NotificationService.registerServiceWorker();
+  }, []);
+
+  // Update study alerts & trigger daily smart notification
+  useEffect(() => {
+    if (!isLoading) {
+      const alerts = NotificationService.evaluateStudyAlerts(exams, tasks);
+      setStudyAlerts(alerts);
+      NotificationService.checkAndTriggerDailyAlerts(exams, tasks);
+    }
+  }, [exams, tasks, isLoading]);
 
   // Initial Load from Firestore
   const loadInitialData = useCallback(async () => {
@@ -481,6 +501,8 @@ export default function App() {
           activeScreen={activeScreen}
           onResetData={handleResetData}
           isSyncing={isSyncing}
+          onOpenNotifications={() => setIsNotificationCenterOpen(true)}
+          activeAlertsCount={studyAlerts.length}
         />
 
         {/* Scrollable Screen Switcher Tabs */}
@@ -542,6 +564,7 @@ export default function App() {
                   onNavigate={setActiveScreen}
                   onToggleTask={handleToggleTask}
                   onQuickAddTask={() => setActiveScreen('tasks')}
+                  onOpenNotifications={() => setIsNotificationCenterOpen(true)}
                 />
               )}
 
@@ -622,6 +645,15 @@ export default function App() {
           activeScreen={activeScreen}
           onSelectScreen={setActiveScreen}
           pendingTasksCount={pendingTasksCount}
+        />
+
+        {/* Notification Center Modal */}
+        <NotificationCenterModal
+          isOpen={isNotificationCenterOpen}
+          onClose={() => setIsNotificationCenterOpen(false)}
+          alerts={studyAlerts}
+          onNavigate={(screen) => setActiveScreen(screen)}
+          onShowToast={(msg) => setToastMessage(msg)}
         />
       </div>
     </div>
