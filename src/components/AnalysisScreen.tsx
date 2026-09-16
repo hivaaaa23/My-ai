@@ -319,15 +319,21 @@ export const AnalysisScreen: React.FC<AnalysisScreenProps> = ({
           </div>
 
           <div className="space-y-2">
-            {analysis.strengths.map((item, idx) => (
-              <div key={idx} className="glass-box p-2.5 rounded-xl bg-white/70 text-xs space-y-0.5">
-                <div className="flex items-center justify-between font-bold text-[#28264B]">
-                  <span>{item.subject}</span>
-                  <span className="text-[11px] text-emerald-700">{item.scoreText}</span>
+            {analysis.strengths.length === 0 ? (
+              <p className="text-xs text-[#4E5174] py-1">
+                هنوز تستی ثبت نشده است. با ثبت اولین تست‌ها و درصدها، نقاط قوت شما در اینجا تحلیل می‌شود.
+              </p>
+            ) : (
+              analysis.strengths.map((item, idx) => (
+                <div key={idx} className="glass-box p-2.5 rounded-xl bg-white/70 text-xs space-y-0.5">
+                  <div className="flex items-center justify-between font-bold text-[#28264B]">
+                    <span>{item.subject}</span>
+                    <span className="text-[11px] text-emerald-700">{item.scoreText}</span>
+                  </div>
+                  <p className="text-[11px] text-[#4E5174]">{item.details}</p>
                 </div>
-                <p className="text-[11px] text-[#4E5174]">{item.details}</p>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
 
@@ -339,15 +345,21 @@ export const AnalysisScreen: React.FC<AnalysisScreenProps> = ({
           </div>
 
           <div className="space-y-2">
-            {analysis.weaknesses.map((item, idx) => (
-              <div key={idx} className="glass-box p-2.5 rounded-xl bg-white/70 text-xs space-y-0.5">
-                <div className="flex items-center justify-between font-bold text-[#28264B]">
-                  <span>{item.subject}</span>
-                  <span className="text-[11px] text-[#AA0033]">{item.issueText}</span>
+            {analysis.weaknesses.length === 0 ? (
+              <p className="text-xs text-[#4E5174] py-1">
+                نقطه ضعف یا تسک معوقی ثبت نشده است.
+              </p>
+            ) : (
+              analysis.weaknesses.map((item, idx) => (
+                <div key={idx} className="glass-box p-2.5 rounded-xl bg-white/70 text-xs space-y-0.5">
+                  <div className="flex items-center justify-between font-bold text-[#28264B]">
+                    <span>{item.subject}</span>
+                    <span className="text-[11px] text-[#AA0033]">{item.issueText}</span>
+                  </div>
+                  <p className="text-[11px] text-[#4E5174]">{item.suggestedFix}</p>
                 </div>
-                <p className="text-[11px] text-[#4E5174]">{item.suggestedFix}</p>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
       </div>
@@ -359,11 +371,17 @@ export const AnalysisScreen: React.FC<AnalysisScreenProps> = ({
           <span>توصیه‌های راهبردی مشاور برای هفته پیش‌رو</span>
         </div>
 
-        <ul className="space-y-1.5 text-xs text-[#4E5174] leading-relaxed list-disc list-inside">
-          {analysis.recommendations.map((rec, idx) => (
-            <li key={idx} className="pr-1">{rec}</li>
-          ))}
-        </ul>
+        {analysis.recommendations.length === 0 ? (
+          <p className="text-xs text-[#4E5174] py-1">
+            پس از ثبت اولین برنامه‌های مطالعه و تست‌های روزانه، توصیه‌های راهبردی اختصاصی نمایش داده خواهد شد.
+          </p>
+        ) : (
+          <ul className="space-y-1.5 text-xs text-[#4E5174] leading-relaxed list-disc list-inside">
+            {analysis.recommendations.map((rec, idx) => (
+              <li key={idx} className="pr-1">{rec}</li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );

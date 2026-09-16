@@ -1,7 +1,7 @@
 import React from 'react';
 import { ActiveScreen } from '../types/studymate';
 import { getTodayPersianDisplay } from '../utils/persianDate';
-import { RotateCcw, Bell } from 'lucide-react';
+import { Trash2, Bell } from 'lucide-react';
 
 interface AppHeaderProps {
   activeScreen: ActiveScreen;
@@ -68,10 +68,10 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
 
           <button
             onClick={onResetData}
-            title="بازنشانی پایگاه داده به نمونه اولیه"
-            className="p-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition border border-slate-200"
+            title="صفر کردن تمام داده‌ها و شروع از صفر"
+            className="p-2 rounded-xl text-rose-600 hover:text-rose-800 hover:bg-rose-50 transition border border-rose-200"
           >
-            <RotateCcw className="w-4 h-4" />
+            <Trash2 className="w-4 h-4" />
           </button>
         </div>
       </div>

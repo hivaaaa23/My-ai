@@ -579,15 +579,7 @@ export function calculateComprehensiveAnalysis(
     }
   });
 
-  // If no tests recorded yet, supply default insights based on 11th Math curriculum
-  if (strengths.length === 0) {
-    strengths.push({
-      subject: 'حسابان و فیزیک پایه',
-      scoreText: 'روند صعودی در تمرین‌های تشریحی',
-      details: 'پیوستگی مناسب در حل تمرینات هفتگی',
-    });
-  }
-
+  // Do not inject fake strengths or weaknesses when there are no real tests
   if (weaknesses.length === 0 && missedTasksList.length > 0) {
     weaknesses.push({
       subject: 'مدیریت زمان و تسک‌های معوق',
@@ -598,24 +590,28 @@ export function calculateComprehensiveAnalysis(
 
   // 5. Strategic Recommendations
   const recommendations: string[] = [];
-  if (missedTasksList.length > 2) {
-    recommendations.push(
-      'از انباشت تسک‌های معوق روی یک روز خودداری کنید؛ تسک‌ها را با دکمه بازتوزیع هوشمند در طول هفته پخش کنید.'
-    );
-  }
-  if (byType.timed.count < 2 && totalTests > 3) {
-    recommendations.push(
-      'برای شبیه‌سازی شرایط کنکور و آزمون‌های آزمایشی، سهم تست‌های «زمان‌دار» را در دروس حسابان و شیمی افزایش دهید.'
-    );
-  }
-  if (completionRate < 60) {
-    recommendations.push(
-      'حجم پارت‌های مطالعاتی را به بخش‌های ۴۵ تا ۶۰ دقیقه‌ای با فواصل استراحت ۱۰ دقیقه‌ای کاهش دهید.'
-    );
+  if (totalTasks === 0 && totalTests === 0) {
+    // Keep recommendations empty when user is starting completely fresh
   } else {
-    recommendations.push(
-      'عملکرد هفتگی شما در مسیر هدف است. روی تست‌های مروری برای تثبیت حافظه بلندمدت تمرکز کنید.'
-    );
+    if (missedTasksList.length > 2) {
+      recommendations.push(
+        'از انباشت تسک‌های معوق روی یک روز خودداری کنید؛ تسک‌ها را با دکمه بازتوزیع هوشمند در طول هفته پخش کنید.'
+      );
+    }
+    if (byType.timed.count < 2 && totalTests > 3) {
+      recommendations.push(
+        'برای شبیه‌سازی شرایط کنکور و آزمون‌های آزمایشی، سهم تست‌های «زمان‌دار» را در دروس حسابان و شیمی افزایش دهید.'
+      );
+    }
+    if (totalTasks > 0 && completionRate < 60) {
+      recommendations.push(
+        'حجم پارت‌های مطالعاتی را به بخش‌های ۴۵ تا ۶۰ دقیقه‌ای با فواصل استراحت ۱۰ دقیقه‌ای کاهش دهید.'
+      );
+    } else if (totalTasks > 0) {
+      recommendations.push(
+        'عملکرد هفتگی شما در مسیر هدف است. روی تست‌های مروری برای تثبیت حافظه بلندمدت تمرکز کنید.'
+      );
+    }
   }
 
   return {

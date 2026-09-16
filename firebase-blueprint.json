@@ -1,0 +1,193 @@
+{
+  "entities": {
+    "Task": {
+      "title": "Task",
+      "description": "A study task or homework item for the student",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "subject": { "type": "string" },
+        "priority": { "type": "string", "enum": ["urgent", "high", "medium", "low"] },
+        "dueDate": { "type": "string" },
+        "status": { "type": "string", "enum": ["todo", "in_progress", "completed"] },
+        "completed": { "type": "boolean" },
+        "estimatedMinutes": { "type": "number" },
+        "goalId": { "type": "string" },
+        "notes": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "userId": { "type": "string" }
+      },
+      "required": ["id", "title", "subject", "priority", "dueDate", "status", "completed", "estimatedMinutes", "createdAt"]
+    },
+    "Goal": {
+      "title": "Goal",
+      "description": "An academic goal or milestone",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "deadline": { "type": "string" },
+        "progress": { "type": "number" },
+        "subject": { "type": "string" },
+        "category": { "type": "string", "enum": ["konkur", "school", "tests"] },
+        "relatedTaskIds": { "type": "array" },
+        "description": { "type": "string" },
+        "userId": { "type": "string" }
+      },
+      "required": ["id", "title", "deadline", "progress", "category"]
+    },
+    "Exam": {
+      "title": "Exam",
+      "description": "An upcoming exam or diagnostic test",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "date": { "type": "string" },
+        "subject": { "type": "string" },
+        "notes": { "type": "string" },
+        "isImportant": { "type": "boolean" },
+        "userId": { "type": "string" }
+      },
+      "required": ["id", "title", "date", "subject"]
+    },
+    "Deadline": {
+      "title": "Deadline",
+      "description": "An academic deadline or milestone date",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "dueDate": { "type": "string" },
+        "category": { "type": "string", "enum": ["exam", "school", "project", "registration"] },
+        "priority": { "type": "string", "enum": ["urgent", "high", "medium", "low"] },
+        "completed": { "type": "boolean" },
+        "notes": { "type": "string" },
+        "userId": { "type": "string" }
+      },
+      "required": ["id", "title", "dueDate", "category", "priority", "completed"]
+    },
+    "SchoolClass": {
+      "title": "SchoolClass",
+      "description": "A scheduled class period in the student's weekly schedule",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "dayOfWeek": { "type": "string", "enum": ["saturday", "sunday", "monday", "tuesday", "wednesday", "thursday", "friday"] },
+        "period": { "type": "number" },
+        "startTime": { "type": "string" },
+        "endTime": { "type": "string" },
+        "subject": { "type": "string" },
+        "teacher": { "type": "string" },
+        "room": { "type": "string" },
+        "userId": { "type": "string" }
+      },
+      "required": ["id", "dayOfWeek", "period", "startTime", "endTime", "subject"]
+    },
+    "DailyTestItem": {
+      "title": "DailyTestItem",
+      "description": "A record of daily practice questions or tests solved",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "subject": { "type": "string" },
+        "topic": { "type": "string" },
+        "numberOfQuestions": { "type": "number" },
+        "date": { "type": "string" },
+        "completed": { "type": "boolean" },
+        "testType": { "type": "string" },
+        "correctCount": { "type": "number" },
+        "wrongCount": { "type": "number" },
+        "percentage": { "type": "number" },
+        "userId": { "type": "string" }
+      },
+      "required": ["id", "subject", "topic", "numberOfQuestions", "date", "completed"]
+    },
+    "StudyHistoryItem": {
+      "title": "StudyHistoryItem",
+      "description": "Historical summary of study time and metrics",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "date": { "type": "string" },
+        "totalMinutes": { "type": "number" },
+        "tasksCompleted": { "type": "number" },
+        "questionsSolved": { "type": "number" },
+        "averageTestPercentage": { "type": "number" },
+        "userId": { "type": "string" }
+      },
+      "required": ["id", "date", "totalMinutes", "tasksCompleted", "questionsSolved"]
+    },
+    "ChatMessage": {
+      "title": "ChatMessage",
+      "description": "Chat exchange with the AI study mentor",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "sender": { "type": "string", "enum": ["user", "assistant"] },
+        "text": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "userId": { "type": "string" }
+      },
+      "required": ["id", "sender", "text", "timestamp"]
+    },
+    "UserPreferences": {
+      "title": "UserPreferences",
+      "description": "User academic profile and planner preferences",
+      "type": "object",
+      "properties": {
+        "studentName": { "type": "string" },
+        "grade": { "type": "string" },
+        "major": { "type": "string" },
+        "targetMajor": { "type": "string" },
+        "targetRank": { "type": "number" },
+        "dailyGoalMinutes": { "type": "number" },
+        "weeklyTestGoal": { "type": "number" },
+        "studyPace": { "type": "string", "enum": ["intense", "balanced", "light"] },
+        "notificationsEnabled": { "type": "boolean" },
+        "userId": { "type": "string" }
+      },
+      "required": ["studentName", "grade", "major", "dailyGoalMinutes", "weeklyTestGoal", "studyPace", "notificationsEnabled"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/tasks/{taskId}": {
+      "schema": "Task",
+      "description": "Personal tasks of the student"
+    },
+    "/users/{userId}/goals/{goalId}": {
+      "schema": "Goal",
+      "description": "Academic goals of the student"
+    },
+    "/users/{userId}/exams/{examId}": {
+      "schema": "Exam",
+      "description": "Exams and tests schedule of the student"
+    },
+    "/users/{userId}/deadlines/{deadlineId}": {
+      "schema": "Deadline",
+      "description": "Deadlines for homework and projects"
+    },
+    "/users/{userId}/schedule/{classId}": {
+      "schema": "SchoolClass",
+      "description": "School timetable periods"
+    },
+    "/users/{userId}/dailyTests/{testId}": {
+      "schema": "DailyTestItem",
+      "description": "Daily test solver records"
+    },
+    "/users/{userId}/studyHistory/{historyId}": {
+      "schema": "StudyHistoryItem",
+      "description": "Logged daily study summaries"
+    },
+    "/users/{userId}/chatMessages/{messageId}": {
+      "schema": "ChatMessage",
+      "description": "AI consultant chat log"
+    },
+    "/users/{userId}/preferences/general": {
+      "schema": "UserPreferences",
+      "description": "Student configuration and goals"
+    }
+  }
+}
